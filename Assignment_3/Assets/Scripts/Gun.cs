@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class Gun : MonoBehaviour
 {
@@ -16,9 +17,13 @@ public class Gun : MonoBehaviour
     }
     void Update()
     {
-        if(Input.GetMouseButton(0) && canShoot){
+        if (Mouse.current != null && Mouse.current.leftButton.IsPressed(0) && canShoot)
+        {
             StartCoroutine(Shoot());
         }
+        //if(Input.GetMouseButton(0) && canShoot){
+        //    StartCoroutine(Shoot());
+        //}
     }
 
     IEnumerator Shoot(){
