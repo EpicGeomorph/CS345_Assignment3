@@ -34,11 +34,11 @@ public class Zombie : MonoBehaviour, IDamagable
             case state.chase:
                 navMeshAgent.SetDestination(PlayerMovement.Instance.transform.position);
                 if(health<maxHealth/2){
-                    navMeshAgent.speed=5;
+                    navMeshAgent.speed=7;
                     animator.SetTrigger("Run");
                 }else{
                     animator.SetTrigger("Walk");
-                    navMeshAgent.speed=1;
+                    navMeshAgent.speed=3;
                 }
                 if(Vector3.Distance(transform.position,PlayerMovement.Instance.transform.position)>visionRange*1.5f){
                     currentState = state.idle;
@@ -78,6 +78,9 @@ public class Zombie : MonoBehaviour, IDamagable
         navMeshAgent.SetDestination(transform.position);
         Destroy(this.GetComponent<Collider>());
         animator.SetTrigger("Die");
+        GameObject.FindFirstObjectByType<RoundHandler>().zombies_killed++;
+        GameObject.FindFirstObjectByType<RoundHandler>().total_zombies_killed++;
+        Debug.Log("Zombies Killed: " + GameObject.FindFirstObjectByType<RoundHandler>().zombies_killed);
         yield return new WaitForSeconds(deathAnimation.length);
         Destroy(this.gameObject);
     }

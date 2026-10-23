@@ -2549,8 +2549,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Zombie
   health: 20
-  damage: 1
-  visionRange: 30
+  damage: 2
+  visionRange: 100
   attackRange: 2
   attackAnimation: {fileID: 7400000, guid: de559bbb071ebfd40ab5af80881e75e8, type: 2}
   deathAnimation: {fileID: 1827226128182048838, guid: 857241dcf6bb2ea45a0b3f46d78f44b5, type: 3}
