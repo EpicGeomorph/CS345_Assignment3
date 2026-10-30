@@ -17,6 +17,7 @@ public class RoundHandler : MonoBehaviour
     public GameObject zombie;
     private Boolean round_started = false;
     public int round = 1;
+    public int money = 0;
 
     void Start()
     {

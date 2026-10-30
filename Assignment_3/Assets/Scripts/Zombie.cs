@@ -1,6 +1,7 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.UI;
 
 public class Zombie : MonoBehaviour, IDamagable
 {
@@ -14,6 +15,7 @@ public class Zombie : MonoBehaviour, IDamagable
     bool isAttacking =false;
     public AnimationClip attackAnimation,deathAnimation;
     private IEnumerator routine;
+    public Image healthBar;
 
     void Start(){
         maxHealth = health;
@@ -65,7 +67,7 @@ public class Zombie : MonoBehaviour, IDamagable
         navMeshAgent.SetDestination(transform.position);
         yield return new WaitForSeconds(attackAnimation.length);
         isAttacking = false;
-        if(Vector3.Distance(transform.position,PlayerMovement.Instance.transform.position)<=attackRange+.1f){
+        if(Vector3.Distance(transform.position,PlayerMovement.Instance.transform.position)<=attackRange+.1f && PlayerMovement.Instance.health>0){
             PlayerMovement.Instance.TakeDamage(damage);
         }else{
             currentState = state.chase;
@@ -80,6 +82,7 @@ public class Zombie : MonoBehaviour, IDamagable
         animator.SetTrigger("Die");
         GameObject.FindFirstObjectByType<RoundHandler>().zombies_killed++;
         GameObject.FindFirstObjectByType<RoundHandler>().total_zombies_killed++;
+        GameObject.FindFirstObjectByType<RoundHandler>().money += 15;
         Debug.Log("Zombies Killed: " + GameObject.FindFirstObjectByType<RoundHandler>().zombies_killed);
         yield return new WaitForSeconds(deathAnimation.length);
         Destroy(this.gameObject);
@@ -88,6 +91,7 @@ public class Zombie : MonoBehaviour, IDamagable
     public void TakeDamage(int damage)
     {
         health-=damage;
+        healthBar.fillAmount = ((float)health / maxHealth);
         if(health<=0){
             if(routine!=null){StopCoroutine(routine);}
             routine = Die();

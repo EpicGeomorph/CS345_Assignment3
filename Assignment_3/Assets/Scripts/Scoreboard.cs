@@ -13,6 +13,6 @@ public class Scoreboard : MonoBehaviour
 
     void Update()
     {
-        textmp.text = "Round: " + round_handler.round + "\nZombies Killed: " + round_handler.total_zombies_killed + "\nZombies Left: " + (round_handler.zombies_to_spawn-round_handler.zombies_killed);
+        textmp.text = "Round: " + round_handler.round + "\nZombies Killed: " + round_handler.total_zombies_killed + "\nZombies Left: " + (round_handler.zombies_to_spawn-round_handler.zombies_killed) + "\nMoney: " + round_handler.money;
     }
 }
